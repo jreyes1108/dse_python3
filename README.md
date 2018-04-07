@@ -6,6 +6,7 @@ Run with command:
 docker-compose up
 ```
 
-Edit docker-compose.yml to set your local
-path to the class repo and the local port that
+Edit `docker-compose.yml` to set your local
+path to the class github repo on your system
+and the local port that
 you want on the browser.
