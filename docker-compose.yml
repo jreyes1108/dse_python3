@@ -1,11 +1,11 @@
 version: '3.1'
 services:
-  dse_notebook:
-    container_name: dse_python3_spark
+  dse_python3:
+    container_name: python3_spark
     build:
         context: .
         dockerfile: Dockerfile
     ports:
         - 127.0.0.1:8888:8888
     volumes:
-        - ~/repos/DSE:/home/admin/notebooks
+        - ~/repos/DSE:/home/notebooks
