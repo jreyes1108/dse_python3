@@ -4,6 +4,8 @@ MAINTAINER Juan Reyes <jreyes1108@gmail.com>
 
 RUN apt-get update \
     && apt-get install -y build-essential bash vim curl git wget graphviz \
+    && apt-get install -y texlive-xetex \
+    && apt-get install -y pandoc \
     && apt-get -y autoremove \
     && apt-get -y clean  \
     && apt-get autoclean  \
