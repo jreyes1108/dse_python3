@@ -39,10 +39,9 @@ WORKDIR /home/notebooks
 RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
 RUN jupyter contrib nbextension install --user
 RUN jupyter nbextensions_configurator enable --user
+RUN jupyter nbextension enable --py --sys-prefix ipyleaflet
 RUN jupyter-nbextension install rise --py --sys-prefix
-RUN jupyter-nbextension enable rise --py --sys-prefix
-RUN jupyter labextension install jupyter-leaflet
-
+RUN jupyter nbextension enable rise --py --sys-prefix
 
 # download vim extension
 RUN mkdir -p $(jupyter --data-dir)/nbextensions \
