@@ -17,9 +17,9 @@ RUN apt-get update \
 
 RUN pip3 install --upgrade pip
 RUN pip3 install jupyter notebook pydotplus \
-        ipykernel numpy scipy pandas \
-        matplotlib plotly tabulate sklearn\
-        pymysql pymongo sqlalchemy Pillow \
+        ipykernel numpy scipy pandas ipyleaflet \
+        matplotlib plotly tabulate RISE sklearn\
+        pymysql pymongo sqlalchemy Pillow jupyterthemes \
         pysocks requests[socks] Scrapy beautifulsoup4 wget \
         jupyter_contrib_nbextensions ipywidgets
 
@@ -36,12 +36,23 @@ COPY jupyter_notebook_config.py /home/.jupyter/
 
 WORKDIR /home/notebooks
 
+RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
+RUN jupyter contrib nbextension install --user
+RUN jupyter nbextensions_configurator enable --user
+RUN jupyter-nbextension install rise --py --sys-prefix
+RUN jupyter-nbextension enable rise --py --sys-prefix
+RUN jupyter labextension install jupyter-leaflet
+
+
 # download vim extension
 RUN mkdir -p $(jupyter --data-dir)/nbextensions \
     && cd $(jupyter --data-dir)/nbextensions \
     && git clone https://github.com/lambdalisue/jupyter-vim-binding vim_binding
-# enable Vim like environment
-#RUN jupyter nbextension enable vim_binding/vim_binding
+# simple styles https://github.com/dunovank/jupyter-themes
+#RUN jt -t grade3 -T -f roboto
+# dark
+#RUN jt -t onedork -fs 95 -altp -tfs 11 -nfs 115 -cellw 88% -T
+# light
 
 
 ####################################################
