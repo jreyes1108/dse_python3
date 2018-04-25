@@ -16,15 +16,14 @@ RUN apt-get update \
 
 
 RUN pip3 install --upgrade pip
-RUN pip3 install jupyter notebook pydotplus \
-        ipykernel numpy scipy pandas ipyleaflet \
-        matplotlib plotly tabulate RISE sklearn\
-        pymysql pymongo sqlalchemy Pillow jupyterthemes \
+RUN pip3 install jupyter jupyterthemes notebook pydotplus \
+        ipykernel numpy scipy pandas autopep8 RISE import_ipynb \
+        matplotlib plotly tabulate sklearn yapf pyarrow \
+        pymysql pymongo sqlalchemy Pillow ipyleaflet folium \
         pysocks requests[socks] Scrapy beautifulsoup4 wget \
         jupyter_contrib_nbextensions ipywidgets
 
-# https://github.com/jupyter-widgets/ipywidgets
-RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
+RUN pip3 install --no-cache-dir Cython
 
 RUN rm -r /root/.cache/pip
 
@@ -36,6 +35,7 @@ COPY jupyter_notebook_config.py /home/.jupyter/
 
 WORKDIR /home/notebooks
 
+# https://github.com/jupyter-widgets/ipywidgets
 RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
 RUN jupyter contrib nbextension install --user
 RUN jupyter nbextensions_configurator enable --user
@@ -47,6 +47,7 @@ RUN jupyter nbextension enable rise --py --sys-prefix
 RUN mkdir -p $(jupyter --data-dir)/nbextensions \
     && cd $(jupyter --data-dir)/nbextensions \
     && git clone https://github.com/lambdalisue/jupyter-vim-binding vim_binding
+
 # simple styles https://github.com/dunovank/jupyter-themes
 #RUN jt -t grade3 -T -f roboto
 # dark
