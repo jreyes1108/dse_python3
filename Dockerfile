@@ -21,7 +21,7 @@ RUN pip3 install jupyter jupyterthemes notebook pydotplus \
         matplotlib plotly tabulate sklearn yapf pyarrow \
         pymysql pymongo sqlalchemy Pillow ipyleaflet folium \
         pysocks requests[socks] Scrapy beautifulsoup4 wget \
-        jupyter_contrib_nbextensions ipywidgets
+        jupyter_contrib_nbextensions ipywidgets basemap pydot
 
 RUN pip3 install --no-cache-dir Cython
 
