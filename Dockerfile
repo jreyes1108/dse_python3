@@ -3,16 +3,14 @@ FROM ubuntu:latest
 MAINTAINER Juan Reyes <jreyes1108@gmail.com>
 
 RUN apt-get update \
-    && apt-get install -y build-essential bash vim curl git wget graphviz \
-    && apt-get install -y texlive-xetex \
-    && apt-get install -y pandoc \
+    && apt-get install -y build-essential bash bzip2 vim curl git wget graphviz \
+    ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1 texlive-xetex pandoc \
+    python3 python3-pip python3-dev \
+    python3-matplotlib python3-mpltoolkits.basemap \
     && apt-get -y autoremove \
     && apt-get -y clean  \
     && apt-get autoclean  \
     && rm -rf /var/lib/apt/lists/*
-
-RUN apt-get update \
-    && apt-get install -y python3 python3-pip python3-dev
 
 
 RUN pip3 install --upgrade pip
@@ -21,7 +19,7 @@ RUN pip3 install jupyter jupyterthemes notebook pydotplus \
         matplotlib plotly tabulate sklearn yapf pyarrow \
         pymysql pymongo sqlalchemy Pillow ipyleaflet folium \
         pysocks requests[socks] Scrapy beautifulsoup4 wget \
-        jupyter_contrib_nbextensions ipywidgets basemap pydot
+        jupyter_contrib_nbextensions ipywidgets pydot
 
 RUN pip3 install --no-cache-dir Cython
 
