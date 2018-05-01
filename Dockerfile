@@ -12,16 +12,19 @@ RUN apt-get update \
     && apt-get autoclean  \
     && rm -rf /var/lib/apt/lists/*
 
+RUN rm -f /usr/bin/python && ln -s /usr/bin/python3 /usr/bin/python
 
 RUN pip3 install --upgrade pip
-RUN pip3 install jupyter jupyterthemes notebook pydotplus \
+RUN pip3 install jupyter jupyterthemes notebook pydotplus pyparsing \
         ipykernel numpy scipy pandas autopep8 RISE import_ipynb \
-        matplotlib plotly tabulate sklearn yapf pyarrow \
+        matplotlib plotly tabulate sklearn yapf pyarrow seaborn \
         pymysql pymongo sqlalchemy Pillow ipyleaflet folium \
         pysocks requests[socks] Scrapy beautifulsoup4 wget \
         jupyter_contrib_nbextensions ipywidgets pydot
 
+
 RUN pip3 install --no-cache-dir Cython
+#RUN cd /lib && python3 setup.py
 
 RUN rm -r /root/.cache/pip
 
@@ -29,11 +32,11 @@ RUN rm -r /root/.cache/pip
 ENV HOME /home
 RUN mkdir -p /home/notebooks
 RUN mkdir -p /home/.jupyter
+RUN mkdir -p /home/.jupyter/nbconfig
 COPY jupyter_notebook_config.py /home/.jupyter/
 
 WORKDIR /home/notebooks
 
-# https://github.com/jupyter-widgets/ipywidgets
 RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
 RUN jupyter contrib nbextension install --user
 RUN jupyter nbextensions_configurator enable --user
@@ -46,12 +49,13 @@ RUN mkdir -p $(jupyter --data-dir)/nbextensions \
     && cd $(jupyter --data-dir)/nbextensions \
     && git clone https://github.com/lambdalisue/jupyter-vim-binding vim_binding
 
+
 # simple styles https://github.com/dunovank/jupyter-themes
 #RUN jt -t grade3 -T -f roboto
 # dark
 #RUN jt -t onedork -fs 95 -altp -tfs 11 -nfs 115 -cellw 88% -T
 # light
-
+#RUN jt -t grade3 -altp -f roboto -fs 90 -tfs 90 -nfs 90 -dfs 80 -ofs 80 -cellw 98% -T -vim
 
 ####################################################
 # FULL PYTHON 3 and Jupyter Notebook at this point #

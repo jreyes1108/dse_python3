@@ -1,6 +1,6 @@
 version: '3.1'
 services:
-  dse_python3:
+  dse:
     container_name: python3_spark
     build:
         context: .
@@ -8,4 +8,4 @@ services:
     ports:
         - 127.0.0.1:8888:8888
     volumes:
-        - ~/repos/DSE:/home/notebooks
+        - ~:/home/notebooks
